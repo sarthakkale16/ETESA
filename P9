@@ -1,7 +1,6 @@
-9. Operator Overloading and Data Modification
-Problem Statement: The Vector class has an overloaded + operator to add two vectors. However, instead of returning a new Vector object representing the sum, it modifies one of the original operands. This violates the principle of a pure function for addition.
+// 9. Operator Overloading and Data Modification
+// Problem Statement: The Vector class has an overloaded + operator to add two vectors. However, instead of returning a new Vector object representing the sum, it modifies one of the original operands. This violates the principle of a pure function for addition.
 
-C++
 #include <iostream>
 class Vector {public:
     double x, y;
