@@ -1,0 +1,43 @@
+// 3. Class Destructor and Shallow Copy
+// Problem Statement: The StringWrapper class is designed to manage a dynamic C-style string. However, a copy operation leads to a double-free error when the objects are destroyed. The bug lies in the default copy constructor and copy assignment operator.
+// C++
+
+#include <iostream>#include <cstring>
+class StringWrapper {public:
+    char* data;
+    
+    StringWrapper(const char* str) {
+        std::cout << "Constructor called." << std::endl;
+        data = new char[strlen(str) + 1];
+        strcpy(data, str);
+    }
+    
+    ~StringWrapper() {
+        std::cout << "Destructor called for: " << data << std::endl;
+        delete[] data;
+    }
+    
+    void print() const {
+        std::cout << data << std::endl;
+    }
+};
+void processString() {
+    StringWrapper s1("Hello, World!");
+    std::cout << "s1 content: ";
+    s1.print();
+
+    // This line performs a shallow copy using the default copy constructor.
+    StringWrapper s2 = s1;
+    std::cout << "s2 content: ";
+    s2.print();
+    
+    // When the function exits, s2 is destroyed, then s1 is destroyed.
+    // This will cause a double-free because they both point to the same memory.
+}
+int main() {
+    std::cout << "Starting program..." << std::endl;
+    processString();
+    std::cout << "Program finished." << std::endl;
+
+    return 0;
+}
