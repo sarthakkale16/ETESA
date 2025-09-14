@@ -1,0 +1,33 @@
+// 19. Template Function and Type Compatibility
+// Problem Statement: A generic function template is designed to find the maximum of two values. However, when used with a custom Point class, a compilation error occurs. The bug is that the template function requires an operation (>) that the custom class does not provide.
+
+#include <iostream>
+// Generic function to find the maximum of two values.template <typename T>T myMax(T a, T b) {
+    return (a > b) ? a : b;
+}
+class Point {public:
+    double x, y;
+    
+    Point(double _x, double _y) : x(_x), y(_y) {}
+    
+    void print() const {
+        std::cout << "(" << x << ", " << y << ")" << std::endl;
+    }
+};
+int main() {
+    Point p1(1.0, 5.0);
+    Point p2(3.0, 2.0);
+    
+    // The compiler will fail here because the Point class does not have an overloaded '>' operator.
+    Point p3 = myMax(p1, p2);
+    
+    std::cout << "Point p1: ";
+    p1.print();
+    std::cout << "Point p2: ";
+    p2.print();
+    
+    std::cout << "Max Point (p3): ";
+    p3.print();
+
+    return 0;
+}
