@@ -1,0 +1,50 @@
+8. Multi-Dimensional Array Memory Deallocation
+Problem Statement: The program allocates a 2D array on the heap. However, the deallocation routine is incorrect and causes a double-free error when the program finishes.
+
+c++
+
+#include <iostream>
+void allocateMatrix(int**& matrix, int rows, int cols) {
+    std::cout << "Allocating a " << rows << "x" << cols << " matrix." << std::endl;
+    matrix = new int*[rows];
+    for (int i = 0; i < rows; ++i) {
+        matrix[i] = new int[cols];
+    }
+    std::cout << "Matrix allocation complete." << std::endl;
+}
+void deallocateMatrix(int**& matrix, int rows, int cols) {
+    std::cout << "Deallocating matrix." << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        // This line is incorrect. It attempts to delete the array of pointers,
+        // which will be deleted multiple times.
+        delete[] matrix; 
+    }
+    // This is a second, redundant deallocation.
+    delete[] matrix;
+    std::cout << "Deallocation complete." << std::endl;
+}
+int main() {
+    int rows = 4, cols = 5;
+    int** my_matrix = nullptr;
+    
+    allocateMatrix(my_matrix, rows, cols);
+    
+    std::cout << "Initializing matrix with values." << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            my_matrix[i][j] = i * 10 + j;
+        }
+    }
+    
+    std::cout << "Printing matrix..." << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << my_matrix[i][j] << "\t";
+        }
+        std::cout << std::endl;
+    }
+    
+    deallocateMatrix(my_matrix, rows, cols);
+    
+    return 0;
+}
