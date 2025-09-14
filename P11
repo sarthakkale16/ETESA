@@ -1,0 +1,22 @@
+// 11. Simple Array Iteration
+// Problem Statement: The code is designed to iterate through a static array of integers and print each element. However, it crashes or prints garbage values. The bug is a classic off-by-one error in the loop condition.
+
+
+#include <iostream>
+int main() {
+    int data[5] = {10, 20, 30, 40, 50};
+    int sum = 0;
+    
+    std::cout << "Iterating through the array..." << std::endl;
+    
+    // The loop condition is incorrect, it accesses memory beyond the array's bounds.
+    for (int i = 0; i <= 5; ++i) {
+        std::cout << "Accessing element at index " << i << ": ";
+        sum += data[i];
+        std::cout << data[i] << std::endl;
+    }
+    
+    std::cout << "Total sum: " << sum << std::endl;
+    
+    return 0;
+}
