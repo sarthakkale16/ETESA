@@ -1,0 +1,53 @@
+// 13. Simple Linked List Deletion
+// Problem Statement: The following code for a singly linked list has a function to delete a node by its value. However, it fails to work correctly and often results in a segmentation fault. The bug is in how the pointers are handled during deletion.
+
+#include <iostream>
+struct Node {
+    int data;
+    Node* next;
+};
+void deleteNode(Node* head, int value) {
+    if (head == nullptr) {
+        return;
+    }
+    
+    Node* current = head;
+    Node* prev = nullptr;
+    
+    while (current != nullptr && current->data != value) {
+        prev = current;
+        current = current->next;
+    }
+    
+    if (current != nullptr) {
+        // This logic is incorrect for deleting from a linked list.
+        if (prev == nullptr) {
+            head = current->next; // Buggy
+        } else {
+            prev->next = current->next;
+        }
+        delete current;
+    }
+}
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        std::cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+int main() {
+    Node* head = new Node{1, new Node{2, new Node{3, new Node{4, nullptr}}}};
+    
+    std::cout << "Original list: ";
+    printList(head);
+    
+    std::cout << "Attempting to delete node with value 3." << std::endl;
+    deleteNode(head, 3);
+    
+    std::cout << "List after deletion attempt: ";
+    printList(head);
+    
+    return 0;
+}
