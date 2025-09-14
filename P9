@@ -1,0 +1,40 @@
+9. Operator Overloading and Data Modification
+Problem Statement: The Vector class has an overloaded + operator to add two vectors. However, instead of returning a new Vector object representing the sum, it modifies one of the original operands. This violates the principle of a pure function for addition.
+
+C++
+#include <iostream>
+class Vector {public:
+    double x, y;
+    
+    Vector(double _x = 0.0, double _y = 0.0) : x(_x), y(_y) {}
+    
+    // The addition operator should not modify the current object.
+    Vector operator+(const Vector& other) {
+        std::cout << "Executing a buggy addition operation..." << std::endl;
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+    
+    void print() const {
+        std::cout << "Vector(" << x << ", " << y << ")" << std::endl;
+    }
+};
+int main() {
+    Vector v1(1.0, 2.0);
+    Vector v2(3.0, 4.0);
+    
+    std::cout << "Original vectors:" << std::endl;
+    std::cout << "v1: "; v1.print();
+    std::cout << "v2: "; v2.print();
+    
+    // The bug is here. The result is stored in v3, but v1 is also modified.
+    Vector v3 = v1 + v2;
+    
+    std::cout << "Vectors after addition:" << std::endl;
+    std::cout << "v1: "; v1.print();
+    std::cout << "v2: "; v2.print();
+    std::cout << "v3: "; v3.print();
+    
+    return 0;
+}
