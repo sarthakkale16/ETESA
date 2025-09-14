@@ -1,7 +1,5 @@
-8. Multi-Dimensional Array Memory Deallocation
-Problem Statement: The program allocates a 2D array on the heap. However, the deallocation routine is incorrect and causes a double-free error when the program finishes.
-
-c++
+// 8. Multi-Dimensional Array Memory Deallocation
+// Problem Statement: The program allocates a 2D array on the heap. However, the deallocation routine is incorrect and causes a double-free error when the program finishes.
 
 #include <iostream>
 void allocateMatrix(int**& matrix, int rows, int cols) {
