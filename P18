@@ -1,0 +1,49 @@
+// 18. Class Copy Assignment Operator
+// Problem Statement: A Data class has a dynamically allocated integer array. When one Data object is assigned to another, it causes a memory leak and a potential double-free error. The bug is the missing or incorrect copy assignment operator.
+
+#include <iostream>#include <vector>
+class Data {public:
+    int* values;
+    int size;
+
+    Data(int s) : size(s) {
+        values = new int[s];
+        std::cout << "Constructor called. Memory allocated." << std::endl;
+    }
+
+    ~Data() {
+        delete[] values;
+        std::cout << "Destructor called. Memory freed." << std::endl;
+    }
+};
+int main() {
+    Data d1(5);
+    for(int i = 0; i < 5; ++i) {
+        d1.values[i] = i + 1;
+    }
+
+    Data d2(3);
+    for(int i = 0; i < 3; ++i) {
+        d2.values[i] = (i + 1) * 10;
+    }
+
+    std::cout << "d1 values before assignment: ";
+    for(int i = 0; i < 5; ++i) std::cout << d1.values[i] << " ";
+    std::cout << std::endl;
+
+    std::cout << "d2 values before assignment: ";
+    for(int i = 0; i < 3; ++i) std::cout << d2.values[i] << " ";
+    std::cout << std::endl;
+
+    d2 = d1; // Shallow copy via default assignment operator.
+
+    std::cout << "d1 values after assignment: ";
+    for(int i = 0; i < 5; ++i) std::cout << d1.values[i] << " ";
+    std::cout << std::endl;
+
+    std::cout << "d2 values after assignment: ";
+    for(int i = 0; i < 5; ++i) std::cout << d2.values[i] << " ";
+    std::cout << std::endl;
+
+    return 0;
+}
