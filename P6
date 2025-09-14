@@ -1,0 +1,45 @@
+//6. Virtual Functions and Polymorphism
+//Problem Statement: The code uses inheritance to define different types of animals. However, when a Dog object is accessed through an Animal pointer, the wrong speak function is called. This indicates that polymorphism is not working as expected.
+
+//C++
+
+#include <iostream>#include <string>
+class Animal {public:
+    void speak() {
+        std::cout << "An animal makes a sound." << std::endl;
+    }
+    void doSomething() {
+        std::cout << "Animal doing something..." << std::endl;
+    }
+};
+class Dog : public Animal {public:
+    void speak() {
+        std::cout << "A dog barks." << std::endl;
+    }
+    void fetch() {
+        std::cout << "Dog is fetching a ball." << std::endl;
+    }
+};
+class Cat : public Animal {public:
+    void speak() {
+        std::cout << "A cat meows." << std::endl;
+    }
+};
+int main() {
+    Animal* myPet = new Dog();
+    
+    std::cout << "Calling speak() on a Dog object via an Animal pointer:" << std::endl;
+    myPet->speak(); // This will call the Animal's speak()
+    
+    std::cout << "Calling doSomething() on a Dog object:" << std::endl;
+    myPet->doSomething();
+    
+    Dog* myDog = new Dog();
+    std::cout << "Calling speak() on a Dog object via a Dog pointer:" << std::endl;
+    myDog->speak(); // This works as expected
+    
+    delete myPet;
+    delete myDog;
+    
+    return 0;
+}
