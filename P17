@@ -1,0 +1,20 @@
+// 17. Recursive Function without Base Case
+// Problem Statement: A recursive function is designed to count down from a number. However, it causes a stack overflow because it never reaches a termination condition.
+
+
+#include <iostream>
+void countdown(int n) {
+    std::cout << n << std::endl;
+    // The recursive call lacks a termination condition.
+    countdown(n - 1);
+}
+int main() {
+    int start_num = 5;
+    
+    std::cout << "Starting countdown from " << start_num << "..." << std::endl;
+    countdown(start_num);
+    
+    std::cout << "Countdown complete." << std::endl;
+    
+    return 0;
+}
