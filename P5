@@ -1,0 +1,39 @@
+// 5. Pointer Arithmetic and Array Bounds
+// Problem Statement: The code is intended to reverse a C-style string in place. However, it results in a segmentation fault or incorrect output. The error is due to an off-by-one bug in the pointer arithmetic.
+
+//C++
+
+
+#include <iostream>#include <cstring>#include <utility>
+void reverseString(char* str) {
+    if (str == nullptr) {
+        return;
+    }
+    int len = strlen(str);
+    char* start = str;
+    char* end = str + len;
+    
+    std::cout << "String length: " << len << std::endl;
+    std::cout << "Initial start pointer: " << (void*)start << std::endl;
+    std::cout << "Initial end pointer: " << (void*)end << std::endl;
+    
+    while (start < end) {
+        std::cout << "Swapping '" << *start << "' and '" << *end << "'" << std::endl;
+        std::swap(*start, *end);
+        start++;
+        end--;
+    }
+}
+int main() {
+    char my_string[] = "abcdef";
+    std::cout << "Original string: " << my_string << std::endl;
+    
+    reverseString(my_string);
+    
+    std::cout << "Reversed string: " << my_string << std::endl;
+
+    char empty_string[] = "";
+    reverseString(empty_string);
+    
+    return 0;
+}
