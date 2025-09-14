@@ -1,0 +1,25 @@
+//1. Function Parameter Passing and Value Modification
+//Problem Statement: The program is designed to double the value of an integer variable using a function. However, when the function returns, the variable in the main function remains unchanged. The bug is subtle and is related to how the variable is passed to the function.
+
+#include <iostream>#include <vector>
+// This function is intended to double the value of its argument.void doubleValue(int num) {
+    std::cout << "Inside function: original value is " << num << std::endl;
+    num = num * 2;
+    std::cout << "Inside function: new value is " << num << std::endl;
+}
+int main() {
+    int my_number = 15;
+    std::cout << "Before function call: my_number = " << my_number << std::endl;
+
+    doubleValue(my_number);
+
+    std::cout << "After function call: my_number = " << my_number << std::endl;
+
+    std::vector<int> numbers = {1, 2, 3};
+    std::cout << "Testing with another variable..." << std::endl;
+    int another_number = 20;
+    doubleValue(another_number);
+    std::cout << "Another number after call: " << another_number << std::endl;
+
+    return 0;
+}
