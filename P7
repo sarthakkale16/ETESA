@@ -1,0 +1,37 @@
+7. STL Container Iterators and Erasure
+Problem Statement: The code attempts to remove all even numbers from a std::vector using a loop and an iterator. However, the program crashes or behaves unexpectedly. The bug is caused by invalidating the iterator after an erase operation.
+Buggy Code:
+C++
+
+
+
+#include <iostream>#include <vector>#include <algorithm>
+void printVector(const std::vector<int>& vec) {
+    for (int num : vec) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+}
+void removeEvenNumbers(std::vector<int>& numbers) {
+    std::cout << "Attempting to remove even numbers..." << std::endl;
+    for (auto it = numbers.begin(); it != numbers.end(); ++it) {
+        if (*it % 2 == 0) {
+            std::cout << "Erasing " << *it << "..." << std::endl;
+            numbers.erase(it);
+        }
+    }
+    std::cout << "Removal process finished." << std::endl;
+}
+int main() {
+    std::vector<int> my_numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    
+    std::cout << "Original vector: ";
+    printVector(my_numbers);
+    
+    removeEvenNumbers(my_numbers);
+    
+    std::cout << "Vector after removal attempt: ";
+    printVector(my_numbers);
+    
+    return 0;
+}
