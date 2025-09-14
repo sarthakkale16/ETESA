@@ -1,3 +1,6 @@
+  # Created by Anushka Rani
+  # Repository By Sarthak Kale
+
 # ETESA
 <h1 align="center">Hi 👋, I'm Sarthak</h1>
 <h3 align="center">A Noob Programmer</h3>
