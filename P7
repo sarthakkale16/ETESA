@@ -1,7 +1,6 @@
-7. STL Container Iterators and Erasure
-Problem Statement: The code attempts to remove all even numbers from a std::vector using a loop and an iterator. However, the program crashes or behaves unexpectedly. The bug is caused by invalidating the iterator after an erase operation.
-Buggy Code:
-C++
+// 7. STL Container Iterators and Erasure
+// Problem Statement: The code attempts to remove all even numbers from a std::vector using a loop and an iterator. However, the program crashes or behaves unexpectedly. The bug is caused by invalidating the iterator after an erase operation.
+
 
 
 
