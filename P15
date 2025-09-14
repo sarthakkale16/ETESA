@@ -1,0 +1,37 @@
+// 15. Bubble Sort Algorithm
+// Problem Statement: The provided implementation of the Bubble Sort algorithm fails to sort the array correctly. The bug is in the loop conditions, causing an out-of-bounds access.
+
+
+#include <iostream>#include <vector>#include <utility>
+void bubbleSort(std::vector<int>& arr) {
+    int n = arr.size();
+    
+    // The outer loop's condition is slightly off.
+    for (int i = 0; i < n; ++i) {
+        // The inner loop's condition is the main source of the bug.
+        for (int j = 0; j < n; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                std::swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+void printVector(const std::vector<int>& arr) {
+    for (int val : arr) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+}
+int main() {
+    std::vector<int> numbers = {64, 34, 25, 12, 22, 11, 90};
+    
+    std::cout << "Original array: ";
+    printVector(numbers);
+    
+    bubbleSort(numbers);
+    
+    std::cout << "Sorted array: ";
+    printVector(numbers);
+    
+    return 0;
+}
