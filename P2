@@ -1,0 +1,36 @@
+// Problem Statement: The following code allocates dynamic memory for an array of integers. However, it is missing a crucial step that results in a memory leak. The program runs without a visible crash but fails to deallocate resources.
+
+// C++
+#include <iostream>#include <string>
+// A function that allocates an array of integers on the heap.void allocateAndUseMemory(int size) {
+    if (size <= 0) {
+        std::cout << "Invalid size for memory allocation." << std::endl;
+        return;
+    }
+    int* my_array = new int[size];
+    std::cout << "Memory allocated successfully for " << size << " integers." << std::endl;
+    
+    for (int i = 0; i < size; ++i) {
+        my_array[i] = i * 2;
+    }
+    std::cout << "Array elements initialized." << std::endl;
+    
+    // The programmer forgot to deallocate the memory.
+    // The pointer 'my_array' will go out of scope, but the memory
+    // it points to will remain allocated.
+}
+int main() {
+    std::cout << "Starting memory test..." << std::endl;
+    allocateAndUseMemory(50);
+    std::cout << "Function call complete." << std::endl;
+    
+    std::cout << "Performing another allocation..." << std::endl;
+    allocateAndUseMemory(100);
+    std::cout << "Second function call complete." << std::endl;
+
+    std::string message = "This is a simple message.";
+    std::cout << message << std::endl;
+    
+    // The memory is never freed, leading to a memory leak.
+    return 0;
+}
