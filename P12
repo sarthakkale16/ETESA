@@ -1,0 +1,28 @@
+// 12. Integer Overflow
+// Problem Statement: The code is meant to calculate the factorial of an integer. However, for a seemingly small number, the result is incorrect and negative. The bug is caused by the integer type not being large enough to hold the final value.
+
+#include <iostream>
+// This function calculates the factorial of a number recursively.long long factorial(int n) {
+    if (n < 0) {
+        std::cerr << "Error: Factorial of a negative number is undefined." << std::endl;
+        return -1;
+    }
+    if (n == 0) {
+        return 1;
+    }
+    
+    // The return type might be insufficient for the result.
+    long long result = n * factorial(n - 1);
+    
+    return result;
+}
+int main() {
+    int number = 20;
+    std::cout << "Calculating factorial of " << number << "..." << std::endl;
+    long long result = factorial(number);
+    std::cout << "The factorial is: " << result << std::endl;
+    
+    std::cout << "Maximum value for long long: " << LLONG_MAX << std::endl;
+    
+    return 0;
+}
