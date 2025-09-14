@@ -1,0 +1,47 @@
+// 4. Binary Search Tree Insertion
+// Problem Statement: The provided code attempts to insert a new node into a Binary Search Tree (BST) using recursion. However, after the function call, the new node is not correctly linked to the tree. The tree structure remains unchanged after the insertion attempt.
+// C++
+
+
+#include <iostream>
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+// This function attempts to insert a new node into the BST.void insertNode(Node* root, int data) {
+    if (root == nullptr) {
+        root = new Node{data, nullptr, nullptr};
+        return; // This return statement is the problem.
+    }
+    if (data <= root->data) {
+        insertNode(root->left, data);
+    } else {
+        insertNode(root->right, data);
+    }
+}
+void inorderTraversal(Node* root) {
+    if (root != nullptr) {
+        inorderTraversal(root->left);
+        std::cout << root->data << " ";
+        inorderTraversal(root->right);
+    }
+}
+int main() {
+    Node* root = new Node{10, nullptr, nullptr};
+    std::cout << "Initial tree: ";
+    inorderTraversal(root);
+    std::cout << std::endl;
+    
+    std::cout << "Attempting to insert 5 and 15..." << std::endl;
+    insertNode(root, 5);
+    insertNode(root, 15);
+    
+    std::cout << "Tree after insertion: ";
+    inorderTraversal(root);
+    std::cout << std::endl;
+    
+    // To be a complete program, a function for deleting the tree would be necessary.
+    // For this challenge, the focus is on the insertion bug.
+    return 0;
+}
