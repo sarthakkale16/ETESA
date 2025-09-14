@@ -1,0 +1,28 @@
+// 14. Const Correctness
+// Problem Statement: A Rectangle class has a member function to calculate its area. However, when an object is passed by a const reference to a function, a compilation error occurs because the member function is not declared as const.
+
+#include <iostream>
+class Rectangle {public:
+    double width;
+    double height;
+    
+    Rectangle(double w, double h) : width(w), height(h) {}
+    
+    // The getArea function is not marked as const.
+    double getArea() {
+        std::cout << "Calculating area..." << std::endl;
+        return width * height;
+    }
+};
+void printRectangleInfo(const Rectangle& rect) {
+    std::cout << "Rectangle dimensions: " << rect.width << "x" << rect.height << std::endl;
+    
+    // This line causes a compilation error.
+    std::cout << "Area: " << rect.getArea() << std::endl;
+}
+int main() {
+    Rectangle rect1(5.0, 10.0);
+    printRectangleInfo(rect1);
+    
+    return 0;
+}
