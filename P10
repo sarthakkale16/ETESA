@@ -1,0 +1,26 @@
+// 10. File I/O and Flushing
+// Problem Statement: The program is designed to write a string to a file named log.txt. It appears to execute correctly, but no content is written to the file. The bug is related to the I/O buffer not being flushed before the program terminates.
+
+
+#include <iostream>#include <fstream>#include <string>
+int main() {
+    std::cout << "Starting file I/O test..." << std::endl;
+    
+    std::ofstream logFile("log.txt");
+    
+    if (logFile.is_open()) {
+        std::string message = "This is a log message.";
+        logFile << message << std::endl;
+        
+        std::cout << "Message written to buffer. Exiting..." << std::endl;
+        
+        // The file is not explicitly closed or flushed here.
+        // It relies on the destructor to close the file, but the program
+        // might terminate before the destructor is called.
+    } else {
+        std::cerr << "Error: Unable to open file." << std::endl;
+        return 1;
+    }
+    
+    return 0;
+}
