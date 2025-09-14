@@ -1,0 +1,23 @@
+// 16. Pointers to Pointers and Function Call
+// Problem Statement: A program to dynamically allocate an integer and pass its pointer to a function fails to modify the pointer in the main function. The bug is that the pointer is passed by value, not by reference.
+
+#include <iostream>
+void allocateAndAssign(int* ptr) {
+    std::cout << "Inside function: Allocating memory and assigning value..." << std::endl;
+    ptr = new int(10);
+    std::cout << "Inside function: New pointer value is " << ptr << std::endl;
+}
+int main() {
+    int* my_ptr = nullptr;
+    
+    std::cout << "Before function call, my_ptr = " << my_ptr << std::endl;
+    
+    allocateAndAssign(my_ptr);
+    
+    std::cout << "After function call, my_ptr = " << my_ptr << std::endl;
+    
+    // This line will cause a segmentation fault because my_ptr is still nullptr.
+    // std::cout << "Value at my_ptr: " << *my_ptr << std::endl;
+    
+    return 0;
+}
